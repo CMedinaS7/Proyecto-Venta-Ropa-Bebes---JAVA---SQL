@@ -1,0 +1,12 @@
+.QOverlay {
+	background-color: #EBEAD6;
+	background-image:url(../image/logo.png);
+	background-position:center 40%;
+	background-repeat:no-repeat;
+	z-index: 9999;
+}
+
+.QLoader {
+	background-color: #09F;
+	height: 1px;
+}

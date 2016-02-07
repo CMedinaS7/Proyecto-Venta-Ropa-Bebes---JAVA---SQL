@@ -1,0 +1,1311 @@
+CREATE DATABASE  IF NOT EXISTS `babymodasss` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `babymodasss`;
+-- MySQL dump 10.13  Distrib 5.1.40, for Win32 (ia32)
+--
+-- Host: localhost    Database: babymodasss
+-- ------------------------------------------------------
+-- Server version	5.1.48-community
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categoria` (
+  `IdCategoria` char(5) NOT NULL,
+  `Nombre` varchar(50) NOT NULL,
+  PRIMARY KEY (`IdCategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoria`
+--
+
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES ('C0001','Accesorios'),('C0002','Calzados'),('C0003','Entretenimiento'),('C0004','Higiene y Salud'),('C0005','Linea'),('C0006','Linea Blanca'),('C0007','Mobiliario'),('C0008','Moda');
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cargo`
+--
+
+DROP TABLE IF EXISTS `cargo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cargo` (
+  `IdCargo` char(5) NOT NULL,
+  `Nombre` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`IdCargo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cargo`
+--
+
+LOCK TABLES `cargo` WRITE;
+/*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
+INSERT INTO `cargo` VALUES ('Ca001','ADMINISTRADOR'),('Ca002','VENTAS'),('Ca003','VENDEDOR'),('Ca004','SECRETARIA'),('Ca005','CAJERO'),('Ca006','CONTADOR');
+/*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `usuario` varchar(50) NOT NULL,
+  `pasword` varchar(50) NOT NULL,
+  `foto` varchar(50) NOT NULL,
+  `IdPersonal` char(5) NOT NULL,
+  PRIMARY KEY (`IdPersonal`),
+  KEY `IdPer` (`IdPersonal`),
+  KEY `fk_usuario` (`IdPersonal`),
+  CONSTRAINT `fk_usuario` FOREIGN KEY (`IdPersonal`) REFERENCES `personal` (`IdPersonal`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES ('admin','123456','img/fotos/admin.jpg','PE001'),('vendedor','123456','img/fotos/vendedor.jpg','PE007');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `personal`
+--
+
+DROP TABLE IF EXISTS `personal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `personal` (
+  `IdPersonal` char(5) NOT NULL,
+  `Nombres` varchar(50) NOT NULL,
+  `Apellidos` varchar(50) NOT NULL,
+  `DNI` char(8) NOT NULL,
+  `Telefono` char(10) NOT NULL,
+  `Direccion` varchar(50) DEFAULT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Activo` char(1) NOT NULL,
+  `IdCargo` char(5) NOT NULL,
+  PRIMARY KEY (`IdPersonal`),
+  KEY `IdCargo` (`IdPersonal`),
+  KEY `fk_personal` (`IdCargo`),
+  CONSTRAINT `fk_personal` FOREIGN KEY (`IdCargo`) REFERENCES `cargo` (`IdCargo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `personal`
+--
+
+LOCK TABLES `personal` WRITE;
+/*!40000 ALTER TABLE `personal` DISABLE KEYS */;
+INSERT INTO `personal` VALUES ('Pe001','Luis Carlos','Paredes Mendoza','18201532','123456789','Francisco Falcao 252 Urb. El Sol','Paredes@hotmail.com','1','Ca001'),('Pe002','Bruno Antonio','Vallejos Loayza','52194171','484848848','C - 25 Urb. Las Casuarinas','bruant@hotmail.com','0','Ca001'),('Pe003','Fabricioa','Avalos Straver','65473263','987567456','urb. Covidunt A-7','Fabri@hotmail.com','1','Ca001'),('Pe004','Eder Felipe','Benites Desposorio','65483263','765465356','B - 5 Urb. Covidunt','Feli_Benites@hotmail.com','0','Ca002'),('Pe005','Jenifer','Gomes Medina','78752355','987567468','Garcilazo de la Vega 184','Gomes@hotmail.com','1','Ca006'),('Pe006','Julio Cesar','Salinas Rodrigues','92031447','986763562','av larco 524','Cesar@hotmail.com','1','Ca003'),('Pe007','Daniela Alexa','Carrion Torres','12356895','967834562','D - 11 urb. El Sol','Alexa@hotmail.com','1','Ca003'),('Pe008','Juan Daniel','Gomes Montes','25635987','978523456','F - 16 Urb. Las Casuarinas','Daniel@hotmail.com','0','Ca001'),('Pe009','Jhon Cristian','Gonzales Quiros','10531053','954554568','Cristobal de Molina 206 Urb. El sol','Cristian_Quiros@hotmail.com','1','Ca004'),('Pe010','Roberto Carlos','Medina Rojas','11858961','942677643','Gonzales Prada 471','CarlosM@hotmail.com','1','Ca002'),('PE011','Nila','Torres Gutierrez','47641184','948703839','Los Huertos','Maritte@hotmail.com','1','Ca003');
+/*!40000 ALTER TABLE `personal` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `marca`
+--
+
+DROP TABLE IF EXISTS `marca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `marca` (
+  `IdMarca` char(5) NOT NULL,
+  `Nombre` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`IdMarca`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `marca`
+--
+
+LOCK TABLES `marca` WRITE;
+/*!40000 ALTER TABLE `marca` DISABLE KEYS */;
+INSERT INTO `marca` VALUES ('M0001','Vertbaudent'),('M0002','Fisher-price'),('M0003','chicco'),('M0004','Recaro'),('M0005','Britax'),('M0006','E-nanitos'),('M0007','Ecomoda'),('M0008','Child'),('M0009','Bibi'),('M0010','Jump'),('M0011','Ninet');
+/*!40000 ALTER TABLE `marca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cliente` (
+  `IdCliente` char(5) NOT NULL,
+  `FechaCreacion` datetime NOT NULL,
+  `Direccion` varchar(50) NOT NULL,
+  `Email` varchar(50) DEFAULT NULL,
+  `Telefono` char(20) NOT NULL,
+  `Usuario` varchar(50) NOT NULL,
+  `Clave` varchar(50) NOT NULL,
+  `Estado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`IdCliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cliente`
+--
+
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES ('CJ004','2012-05-14 00:00:00','Av. America 456','Rubio@hotmail.com','938474637','upao','123456',0),('CJ005','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ006','2012-05-18 00:00:00','direccion','email@hotmail.com','telefono','usuario','clave',0),('CJ007','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ008','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ009','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ010','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ011','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ012','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ013','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ014','2012-05-18 00:00:00','direccion','email','telefono','u\nsuario','clave',1),('CJ015','2012-05-18 00:00:00','direccion','email','telefono','u\nsuario','clave',1),('CJ016','2012-05-18 00:00:00','direccion','email','telefono','usuario','clave',1),('CJ019','2012-05-20 00:00:00','ggg','ca@g.cd','hhhhhhh','ca@g.cd','122',1),('CN001','2011-12-12 00:00:00','Av. Husares de Junin 345','porvenir_11@hotmail.com','948703839','carlosjms7@hotmail.com','123456',1),('CN002','2011-11-11 00:00:00','Los Huertos','Quispe@hotmail.com','948703839','usu','cla',1),('CN003','2012-05-14 00:00:00','Los Huertos','Cesar@hotmail.com','234567897','carlos','123456',1),('CN017','2012-05-20 00:00:00','asdfff','carlosjms7@hotmail.com','635353','carlosjms7@hotmail.com','123456',1),('CN018','2012-05-20 00:00:00','asd','carlos@h.cn','12345678','carlos@h.cn','asdfg',1),('CN020','2012-05-21 00:00:00','Mi Casita N 678756','lizeth_sagitario_93@hotmail.com','947635342','lizeth_sagitario_93@hotmail.com','123456',1),('CN021','2012-05-25 00:00:00','laredo 548 Av.xxxx','juan@hotmail.com','124587899','juan@hotmail.com','123456',1),('CN022','2012-06-14 00:00:00','1111','1222','sdsdsdf','444','54545',1),('CN023','2012-06-16 00:00:00','1111','1222','sdsdsdf','444','54545',1),('CN024','2012-06-16 00:00:00','asdasdasdasdasdasdasdasdasd','111','sdsdsdf','123','123',0),('CN025','2012-09-15 00:00:00','65456465','a@a.a','456545646','aaa','123456',1),('CN026','2012-09-15 00:00:00','464564','a@g.g','5646456465','a@g.g','!îÁÑÐtU]dž²¸å',1),('CN027','2012-09-15 00:00:00','54545','aa@a.a','5456456456','aa@a.a','e\'\nv÷\nÓ\\\rvÐÔlÇ_w',1),('CN028','2012-10-14 00:00:00','c','a@a.aaa','55','a@a.aaa','ØèïŽác:–\r Å‘ÎeŽÈ',1),('CN029','2012-11-07 00:00:00','A','bb@bb.bb','45456','bb@bb.bb','á~>øÊ!ÃÏ¹ž¦pð',1);
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `comprobante`
+--
+
+DROP TABLE IF EXISTS `comprobante`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comprobante` (
+  `IdComprobante` char(5) NOT NULL,
+  `Fecha` datetime DEFAULT NULL,
+  `Entrega` datetime DEFAULT NULL,
+  `Estado` varchar(50) DEFAULT NULL,
+  `Subtotal` float DEFAULT NULL,
+  `IdPersonal` char(5) NOT NULL,
+  `IdCliente` char(5) NOT NULL,
+  `TipoComprobante` char(5) NOT NULL,
+  `Pagado` int(11) DEFAULT '0',
+  PRIMARY KEY (`IdComprobante`),
+  KEY `fk_comprobante` (`IdCliente`),
+  KEY `fk1_comprovante` (`IdPersonal`),
+  KEY `fk_tipo` (`TipoComprobante`),
+  CONSTRAINT `fk1_comprovante` FOREIGN KEY (`IdPersonal`) REFERENCES `personal` (`IdPersonal`),
+  CONSTRAINT `fk_comprobante` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`IdCliente`),
+  CONSTRAINT `fk_tipo` FOREIGN KEY (`TipoComprobante`) REFERENCES `tipocomprobante` (`idtipocomprobante`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comprobante`
+--
+
+LOCK TABLES `comprobante` WRITE;
+/*!40000 ALTER TABLE `comprobante` DISABLE KEYS */;
+INSERT INTO `comprobante` VALUES ('C0001','2012-05-24 00:00:00','2012-05-24 00:00:00','1',540,'Pe001','CN001','TC001',0),('C0002','2012-05-24 00:00:00','2012-05-24 00:00:00','1',121,'Pe001','CN001','TC001',1),('C0003','2012-05-25 00:00:00','2012-05-25 00:00:00','1',356,'Pe001','CN001','TC001',1),('C0004','2012-05-25 00:00:00','2012-05-25 00:00:00','1',54,'Pe001','CN021','TC001',0),('C0005','2012-05-31 00:00:00','2012-05-31 00:00:00','1',32,'Pe001','CJ019','TC001',0),('C0006','2012-05-31 00:00:00','2012-05-31 00:00:00','1',43,'Pe001','CJ019','TC001',1),('C0007','2012-10-14 00:00:00','2012-10-14 00:00:00','1',60,'Pe001','CN028','TC001',1),('C0008','2012-10-14 00:00:00','2012-10-14 00:00:00','1',60,'Pe001','CN028','TC001',1),('C0009','2012-10-24 00:00:00','2012-10-24 00:00:00','1',60,'Pe001','CN028','TC001',1),('C0010','2012-10-24 00:00:00','2012-10-24 00:00:00','1',134,'Pe001','CN028','TC001',1),('C0011','2012-10-24 00:00:00','2012-10-24 00:00:00','1',134,'Pe001','CN028','TC001',0),('C0012','2012-10-24 00:00:00','2012-10-24 00:00:00','1',134,'Pe001','CN028','TC001',0);
+/*!40000 ALTER TABLE `comprobante` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `c_juridico`
+--
+
+DROP TABLE IF EXISTS `c_juridico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c_juridico` (
+  `IdCliente` char(5) NOT NULL,
+  `RUC` char(11) NOT NULL,
+  `RazonSocial` varchar(50) NOT NULL,
+  `Representante` varchar(50) NOT NULL,
+  PRIMARY KEY (`IdCliente`),
+  KEY `fk1_cliente` (`IdCliente`),
+  CONSTRAINT `fk1_cliente` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`IdCliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `c_juridico`
+--
+
+LOCK TABLES `c_juridico` WRITE;
+/*!40000 ALTER TABLE `c_juridico` DISABLE KEYS */;
+INSERT INTO `c_juridico` VALUES ('CJ004','23412343232','S.A','Torres Gutierrez');
+/*!40000 ALTER TABLE `c_juridico` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `c_natural`
+--
+
+DROP TABLE IF EXISTS `c_natural`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c_natural` (
+  `IdCliente` char(5) NOT NULL,
+  `Apellidos` varchar(50) NOT NULL,
+  `Nombres` varchar(50) NOT NULL,
+  `DNI` char(8) NOT NULL,
+  `Sexo` varchar(50) NOT NULL,
+  PRIMARY KEY (`IdCliente`),
+  KEY `fk_cliente` (`IdCliente`),
+  CONSTRAINT `fk_cliente` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`IdCliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `c_natural`
+--
+
+LOCK TABLES `c_natural` WRITE;
+/*!40000 ALTER TABLE `c_natural` DISABLE KEYS */;
+INSERT INTO `c_natural` VALUES ('CN001','Medina Silvestre','Carlos Jhoel','47641184','Masculino'),('CN025','aaa','aaaa','44564566','Masculino'),('CN026','sss','aaa','52554545','Masculino'),('CN027','4545','454','45465465','Masculino'),('CN028','c','c','45645645','Femenino'),('CN029','AA','AAA','45656446','Femenino');
+/*!40000 ALTER TABLE `c_natural` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `detalle_comprobante`
+--
+
+DROP TABLE IF EXISTS `detalle_comprobante`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detalle_comprobante` (
+  `IdComprobante` char(5) NOT NULL,
+  `IdProducto` char(5) NOT NULL,
+  `Cantidad` int(11) DEFAULT NULL,
+  `Total` float DEFAULT NULL,
+  `Precio` float DEFAULT NULL,
+  PRIMARY KEY (`IdComprobante`,`IdProducto`),
+  KEY `fk1_detalle_comprobante` (`IdProducto`),
+  KEY `FK_DetalleVenta_Producto` (`IdProducto`),
+  CONSTRAINT `FK_DetalleVenta_Producto` FOREIGN KEY (`IdProducto`) REFERENCES `producto` (`IdProducto`),
+  CONSTRAINT `FK_DetalleVenta_Venta` FOREIGN KEY (`IdComprobante`) REFERENCES `comprobante` (`IdComprobante`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detalle_comprobante`
+--
+
+LOCK TABLES `detalle_comprobante` WRITE;
+/*!40000 ALTER TABLE `detalle_comprobante` DISABLE KEYS */;
+INSERT INTO `detalle_comprobante` VALUES ('C0007','PR001',1,60,60),('C0008','PR001',1,60,60),('C0009','PR001',1,60,60),('C0010','PR001',1,60,60),('C0010','PR005',1,20,20),('C0010','PR015',1,54,54),('C0011','PR001',1,60,60),('C0011','PR005',1,20,20),('C0011','PR015',1,54,54),('C0012','PR001',1,60,60),('C0012','PR005',1,20,20),('C0012','PR015',1,54,54);
+/*!40000 ALTER TABLE `detalle_comprobante` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `subcategoria`
+--
+
+DROP TABLE IF EXISTS `subcategoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `subcategoria` (
+  `IdSubCategoria` char(5) NOT NULL,
+  `Nombre` varchar(50) NOT NULL,
+  `IdCategoria` char(5) NOT NULL,
+  PRIMARY KEY (`IdSubCategoria`),
+  KEY `fk_subcategoria` (`IdCategoria`),
+  CONSTRAINT `fk_subcategoria` FOREIGN KEY (`IdCategoria`) REFERENCES `categoria` (`IdCategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subcategoria`
+--
+
+LOCK TABLES `subcategoria` WRITE;
+/*!40000 ALTER TABLE `subcategoria` DISABLE KEYS */;
+INSERT INTO `subcategoria` VALUES ('SC001','Canguros','C0001'),('SC002','Caminadores','C0001'),('SC003','Cambiadores','C0001'),('SC004','Bolsos para pañales','C0001'),('SC005','Bastón','C0001'),('SC006','Maletines','C0001'),('SC007','Sandalias','C0002'),('SC008','Zapatillas ','C0002'),('SC009','Botas','C0002'),('SC010','Zapatos','C0002'),('SC011','Flex-Sand','C0002'),('SC012','Botines','C0002'),('SC013','Zapatenis','C0002'),('SC014','Flex-Zap','C0002'),('SC015','Sandalias Embol.','C0002'),('SC016','Flexibles','C0002'),('SC017','Zapato P','C0002'),('SC018','Balerina','C0002'),('SC019','Pañales','C0004'),('SC020','Biberones','C0004'),('SC021','Tazas','C0004'),('SC022','Mordedores','C0004'),('SC023','Platos','C0004'),('SC024','Cubiertos','C0004'),('SC025','Chupones','C0004'),('SC026','Shampoos','C0004'),('SC027','Colonias','C0004'),('SC028','Hisopos','C0004'),('SC029','Aceites','C0004'),('SC030','Estuches','C0004'),('SC031','Vasos','C0004'),('SC032','Calzoncitos','C0004'),('SC033','Toallitas Humedas','C0004'),('SC034','Cortaúñas','C0004'),('SC035','Bacines','C0008'),('SC036','Anillos Denticion','C0004'),('SC037','Aspiradores Nasales','C0004'),('SC038','Botellas','C0004'),('SC039','Calentador','C0004'),('SC040','Cepillos Dentales','C0004'),('SC041','Cepillos – Biberón','C0004'),('SC042','Peines','C0004'),('SC043','Cremas','C0004'),('SC044','Escobillas-biberón','C0004'),('SC045','Esterilizadores','C0004'),('SC046','Jabones','C0004'),('SC047','Pezoneras','C0004'),('SC048','Talcos','C0004'),('SC049','Termómetros','C0004'),('SC050','Tetinas','C0004'),('SC051','Tijeritas','C0004'),('SC052','Protectores - Lactante','C0004'),('SC053','Protectores – Pezón','C0004'),('SC054','Cuida Uñas','C0004'),('SC055','Cucharas','C0004'),('SC056','Reductor baño','C0004'),('SC057','Mallas de seguridad','C0004'),('SC058','Viseras de Baño','C0004'),('SC059','Esponjitas de Baño','C0004'),('SC060','Termos','C0004'),('SC061','Bañeras','C0004'),('SC062','Colchas','C0005'),('SC063','Mantas','C0005'),('SC064','Porta bebe','C0005'),('SC065','Toallas','C0005'),('SC066','Gorros','C0005'),('SC067','Chaquetas','C0005'),('SC068','Punta','C0005'),('SC069','Pedias','C0005'),('SC070','Babitas','C0005'),('SC071','Baberos','C0005'),('SC072','Mitones','C0005'),('SC073','Ropones','C0005'),('SC074','Polos','C0005'),('SC075','Pantalones','C0005'),('SC076','Pijamas','C0005'),('SC077','cafarenas','C0005'),('SC078','Short','C0005'),('SC079','Ombliguero','C0005'),('SC080','Tetras','C0005'),('SC081','Piluchos','C0005'),('SC082','Guantes','C0005'),('SC083','Vestidos','C0005'),('SC084','Batitas de baño','C0005'),('SC085','Bebe crese','C0005'),('SC086','BVD','C0005'),('SC087','Calzones','C0005'),('SC088','Escarpines','C0005'),('SC089','Pantis','C0005'),('SC090','Babuchas','C0005'),('SC091','Truzas','C0005'),('SC092','Salidas de baños','C0005'),('SC093','Piluchos Mc','C0005'),('SC094','Piluchos Ml','C0005'),('SC095','Mantas térmicas','C0005'),('SC096','Polo-L-Ml','C0005'),('SC097','Polo-L-Mc','C0005'),('SC098','Piluchos-L-Ml','C0005'),('SC099','Sabanas','C0006'),('SC100','Protectores','C0006'),('SC101','Movil','C0006'),('SC102','Tull','C0006'),('SC103','Colchones','C0006'),('SC104','Edredones','C0006'),('SC105','Almohadas','C0006'),('SC106','Cofres','C0006'),('SC107','Cojines Decorativos','C0006'),('SC108','Forros Para Cesta','C0006'),('SC109','Porta Biberón','C0006'),('SC110','Porta pañales','C0006'),('SC111','Porta Medias','C0006'),('SC112','Bóxer','C0006'),('SC113','Cestos','C0006'),('SC114','Cojines','C0006'),('SC115','Cama cuna','C0007'),('SC116','Cestas Para ropa','C0007'),('SC117','Cómodas','C0007'),('SC118','Cunas','C0007'),('SC119','Lámparas','C0007'),('SC120','Sillas Mesedoras','C0007'),('SC121','Tuleros','C0007'),('SC122','Mecedora','C0007'),('SC123','Exhibidores','C0007'),('SC124','Roperos','C0007'),('SC125','Casacas ','C0008'),('SC126','Bermudas','C0008'),('SC127','Buzos','C0008'),('SC128','Pulóver','C0008'),('SC129','Faldas','C0008'),('SC130','Jamper','C0008'),('SC131','Saquito','C0008'),('SC132','Chompas','C0008'),('SC133','Conjuntos','C0008'),('SC134','Camisas','C0008'),('SC135','Body','C0008'),('SC136','Abrigos','C0008'),('SC137','Blusa','C0008'),('SC138','Bvd','C0008'),('SC139','Chalecos','C0008'),('SC140','Overol','C0008'),('SC141','Pantalones ','C0008'),('SC142','Poleros','C0008'),('SC143','Polos','C0008'),('SC144','Shor ','C0008'),('SC145','Vestidos','C0008'),('SC146','Leggins','C0008'),('SC147','chalinas','C0008'),('SC148','Chaquetas','C0008'),('SC149','Medias ','C0008'),('SC150','Pantis ','C0008'),('SC151','Remeras','C0008'),('SC152','Gorras','C0008'),('SC153','Sombreros','C0008'),('SC154','Pijama moda','C0008'),('SC155','Snikers','C0008'),('SC156','Cafarenas','C0008'),('SC157','Ropa de baño','C0008'),('SC158','Mantas','C0008'),('SC159','Vestidos','C0008'),('SC160','Blusas','C0008');
+/*!40000 ALTER TABLE `subcategoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `producto`
+--
+
+DROP TABLE IF EXISTS `producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `producto` (
+  `IdProducto` char(5) NOT NULL,
+  `IdSubCategoria` char(5) NOT NULL,
+  `Descripcion` longtext NOT NULL,
+  `IdMarca` char(5) NOT NULL,
+  `Talla` int(11) NOT NULL,
+  `Color` varchar(50) NOT NULL,
+  `Precio` float NOT NULL,
+  `Stock` int(11) NOT NULL,
+  `foto` varchar(50) NOT NULL,
+  `foto1` varchar(50) NOT NULL,
+  `foto2` varchar(50) NOT NULL,
+  `tags` varchar(50) NOT NULL,
+  PRIMARY KEY (`IdProducto`),
+  KEY `fk_producto` (`IdMarca`),
+  KEY `fk1_producto` (`IdSubCategoria`),
+  CONSTRAINT `fk1_producto` FOREIGN KEY (`IdSubCategoria`) REFERENCES `subcategoria` (`IdSubCategoria`),
+  CONSTRAINT `fk_producto` FOREIGN KEY (`IdMarca`) REFERENCES `marca` (`IdMarca`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `producto`
+--
+
+LOCK TABLES `producto` WRITE;
+/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES ('PR001','SC001','Canguro','M0005',0,'Azul',60,44,'../web/productos/128.jpg','../web/productos/128a.jpg','../web/productos/128.jpg','bebes'),('PR002','SC002','Caminadores','M0001',0,'Azul con amrillo',65,20,'../web/productos/65.jpg','../web/productos/65a.jpg','../web/productos/65.jpg','ninos'),('PR003','SC004','Bolsos para Pañaeles','M0002',0,'Plomo',40,10,'../web/productos/55.jpg','../web/productos/55a.jpg','../web/productos/55.jpg','promociones'),('PR004','SC009','Botas','M0006',18,'Rosadas',75,15,'../web/productos/400.jpg','../web/productos/400a.jpg','../web/productos/400.jpg','promociones'),('PR005','SC020','Biberones','M0003',0,'Rosado con Blanco',20,7,'../web/productos/301.jpg','../web/productos/301a.jpg','../web/productos/301.jpg','bebes'),('PR006','SC115','CamaCuna','M0007',0,'Marron con crema',120,5,'../web/productos/303.jpg','../web/productos/303a.jpg','../web/productos/303.jpg','ninos'),('PR007','SC105','Almohada','M0008',0,'Azul',25,14,'../web/productos/304.jpg','../web/productos/304a.jpg','../web/productos/304.jpg','bebes'),('PR008','SC007','Sandalias','M0001',20,'Rosadas',45,24,'../web/productos/306.jpg','../web/productos/306a.jpg','../web/productos/306.jpg','ninos'),('PR009','SC124','Roperos','M0002',0,'Rosado con Blanco',150,14,'../web/productos/307.jpg','../web/productos/307a.jpg','../web/productos/307.jpg','ninos'),('PR010','SC122','Mecedora','M0003',0,'Azul con verde',80,15,'../web/productos/308.jpg','../web/productos/308a.jpg','../web/productos/308.jpg','promociones'),('PR011','SC119','Lampara','M0006',0,'Verde con amarillo',30,20,'../web/productos/309.jpg','../web/productos/309a.jpg','../web/productos/309.jpg','bebes'),('PR012','SC116','Cesta para ropa','M0007',0,'Rosada con blanca',45,24,'../web/productos/310.jpg','../web/productos/310a.jpg','../web/productos/310.jpg','ninos'),('PR013','SC132','Chompas','M0001',6,'Rosada',52,4,'../web/productos/312.jpg','../web/productos/312a.jpg','../web/productos/312.jpg','bebes'),('PR014','SC130','Jumper','M0003',4,'Rojo con Azul',45,45,'../web/productos/314.jpg','../web/productos/314a.jpg','../web/productos/314.jpg','promociones'),('PR015','SC133','Conjuntos','M0005',6,'Rojo con rosado',54,20,'../web/productos/315.jpg','../web/productos/315a.jpg','../web/productos/315.jpg','bebes'),('PR016','SC129','Faldas','M0007',6,'Azul con rojo',47,15,'../web/productos/317.jpg','../web/productos/317a.jpg','../web/productos/317.jpg','ninos'),('PR017','SC005','Baston','M0004',0,'verde co negro',125,12,'../web/productos/320.jpg','../web/productos/320a.jpg','../web/productos/320.jpg','bebes'),('PR018','SC003','Cambiadores','M0005',0,'Crema',100,13,'../web/productos/321.jpg','../web/productos/321a.jpg','../web/productos/321.jpg','promociones'),('PR019','SC006','Maletines','M0008',0,'Rosada',64,23,'../web/productos/322.png','../web/productos/322a.png','../web/productos/322.png','bebes'),('PR020','SC008','Zapatillas','M0002',20,'Blancas',78,5,'../web/productos/323.jpg','../web/productos/323a.jpg','../web/productos/323.jpg','bebes'),('PR021','SC010','Zapatos','M0005',18,'Rosadas',70,6,'../web/productos/324.jpg','../web/productos/324a.jpg','../web/productos/324.jpg','bebes'),('PR022','SC012','Botines','M0006',18,'Negros con Blanco',45,8,'../web/productos/325.jpg','../web/productos/325a.jpg','../web/productos/325.jpg','ninos'),('PR023','SC013','Zapatenis','M0008',20,'rojos',50,23,'../web/productos/326.jpg','../web/productos/326a.jpg','../web/productos/326.jpg','ninos'),('PR024','SC016','Flexibles','M0007',22,'Rojos con Blanco',55,24,'../web/productos/327.jpg','../web/productos/327a.jpg','../web/productos/327.jpg','promociones'),('PR025','SC018','Balerina','M0008',24,'Rosadas',42,30,'../web/productos/329.jpg','../web/productos/329a.jpg','../web/productos/329.jpg','bebes'),('PR026','SC019','Pañales','M0009',0,'Verde',55,20,'../web/productos/330.jpg','../web/productos/330a.jpg','../web/productos/330.jpg','ninos'),('PR027','SC021','Tazas','M0010',0,'Blanca',40,24,'../web/productos/332.jpg','../web/productos/332a.jpg','../web/productos/332.jpg','promociones'),('PR028','SC022','Mordedores','M0005',0,'Verde con celeste',15,23,'../web/productos/333.jpg','../web/productos/333a.jpg','../web/productos/333.jpg','ninos'),('PR029','SC023','Platos','M0006',0,'Blancos con verde',25,14,'../web/productos/334.jpg','../web/productos/334a.jpg','../web/productos/334.jpg','bebes'),('PR030','SC024','Cubiertos','M0007',0,'Celeste',30,12,'../web/productos/335.jpg','../web/productos/335a.jpg','../web/productos/335.jpg','promociones'),('PR031','SC025','Chupones','M0008',0,'Azul ocn blanco',35,10,'../web/productos/336.jpg','../web/productos/336a.jpg','../web/productos/336.jpg','bebes'),('PR032','SC026','Shampoos','M0005',0,'Celeste',40,16,'../web/productos/337.jpg','../web/productos/337a.jpg','../web/productos/337.jpg','bebes'),('PR033','SC104','Edredondes','M0007',0,'Rosado con amarillo',50,20,'../web/productos/339.jpg','../web/productos/339a.jpg','../web/productos/339.jpg','ninos'),('PR034','SC109','Porta biberon','M0002',0,'Rosado con Celeste',25,5,'../web/productos/340.jpg','../web/productos/340a.jpg','../web/productos/340.jpg','promociones'),('PR035','SC065','Toallas','M0004',0,'Rosa y amarilla',40,4,'../web/productos/341.jpg','../web/productos/341a.jpg','../web/productos/341.jpg','promociones'),('PR036','SC066','Gorros','M0008',0,'Rosado',37,27,'../web/productos/342.jpg','../web/productos/342.jpg','../web/productos/342.jpg','bebes');
+/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipocomprobante`
+--
+
+DROP TABLE IF EXISTS `tipocomprobante`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipocomprobante` (
+  `idtipocomprobante` char(5) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  PRIMARY KEY (`idtipocomprobante`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipocomprobante`
+--
+
+LOCK TABLES `tipocomprobante` WRITE;
+/*!40000 ALTER TABLE `tipocomprobante` DISABLE KEYS */;
+INSERT INTO `tipocomprobante` VALUES ('TC001','BOLETA'),('TC002','FACTURA');
+/*!40000 ALTER TABLE `tipocomprobante` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `tipo_cliente`
+--
+
+DROP TABLE IF EXISTS `tipo_cliente`;
+/*!50001 DROP VIEW IF EXISTS `tipo_cliente`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `tipo_cliente` (
+  `IdCliente` char(5),
+  `FechaCreacion` datetime,
+  `Direccion` varchar(50),
+  `Email` varchar(50),
+  `Telefono` char(20),
+  `Usuario` varchar(50),
+  `Clave` varchar(50),
+  `Estado` tinyint(4),
+  `TipoCliente` varchar(8)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `tipo_cliente`
+--
+
+/*!50001 DROP TABLE IF EXISTS `tipo_cliente`*/;
+/*!50001 DROP VIEW IF EXISTS `tipo_cliente`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `tipo_cliente` AS select `c`.`IdCliente` AS `IdCliente`,`c`.`FechaCreacion` AS `FechaCreacion`,`c`.`Direccion` AS `Direccion`,`c`.`Email` AS `Email`,`c`.`Telefono` AS `Telefono`,`c`.`Usuario` AS `Usuario`,`c`.`Clave` AS `Clave`,`c`.`Estado` AS `Estado`,'JURIDICO' AS `TipoCliente` from (`cliente` `c` join `c_juridico` on((`c`.`IdCliente` = `c_juridico`.`IdCliente`))) union select `c`.`IdCliente` AS `IdCliente`,`c`.`FechaCreacion` AS `FechaCreacion`,`c`.`Direccion` AS `Direccion`,`c`.`Email` AS `Email`,`c`.`Telefono` AS `Telefono`,`c`.`Usuario` AS `Usuario`,`c`.`Clave` AS `Clave`,`c`.`Estado` AS `Estado`,'NATURAL' AS `NATURAL` from (`cliente` `c` join `c_natural` on((`c`.`IdCliente` = `c_natural`.`IdCliente`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Dumping routines for database 'babymodasss'
+--
+/*!50003 DROP FUNCTION IF EXISTS `fn_devuelve_clave` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `fn_devuelve_clave`(code VARCHAR(10)) RETURNS tinyint(4)
+BEGIN
+
+DECLARE p_clave VARCHAR(200);
+SELECT AES_DECRYPT(`cliente`.Clave,'password') into p_clave from cliente
+where cliente.`IdCliente`=code;
+
+RETURN p_clave;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_buscar_cj` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_buscar_cj`(
+_filtro char(11)
+)
+BEGIN
+
+select c.IdCliente,cj.RazonSocial,cj.RUC,c.direccion,c.email,c.telefono from cliente c,c_juridico cj where c.IdCliente=cj.IdCliente and cj.ruc=_filtro;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_buscar_cn` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_buscar_cn`(
+_filtro char(8)
+)
+BEGIN
+
+select c.IdCliente,c.Direccion,c.Email,C.Telefono,concat(cn.Nombres,' ',cn.Apellidos),cn.DNI from cliente c,c_natural cn where cn.IdCliente=c.IdCliente and cn.dni=rtrim(_filtro);
+
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_buscar_pe` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_buscar_pe`(
+_filtro char(8)
+)
+BEGIN
+select p.IdPersonal,concat(p.Nombres,' ',p.Apellidos) as 'Nombre Completo',p.DNI,p.Telefono,p.Direccion,p.Email,c.Nombre as Cargo from personal p, cargo c where p.IdCargo=c.IdCargo and p.dni=_filtro;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_buscar_pro` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_buscar_pro`(
+_filtro char(5)
+)
+BEGIN
+select p.IdProducto,m.nombre as Marca,p.Precio,p.Color,p.foto,c.Nombre as Categoria,sc.Nombre as Subcategoria,p.descripcion,p.stock from producto p,marca m, categoria c,subcategoria sc where p.IdMarca=m.IdMarca and p.idsubcategoria=sc.IdSubcategoria and c.IdCategoria=sc.idcategoria and p.idproducto=_filtro;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_cat` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_cat`(
+_nom varchar(50)
+)
+BEGIN
+declare next_cod int;
+declare codigo char(5);
+
+set next_cod=(select COUNT(IdCategoria) from categoria); 
+
+if(next_cod < 9) then 
+			 set codigo= concat('CA00',next_cod+1);
+
+elseif(next_cod >=9 and next_cod <99) then
+    	 set codigo= concat('CA0',next_cod+1);
+
+elseif(next_cod >=99 and next_cod <999) then
+			 set codigo= concat('CA',next_cod+1);
+end if;
+
+insert into categoria values(codigo,rtrim(_nom));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_cj` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_cj`(
+_direccion varchar(50),
+_email varchar (50),
+_telefono varchar (10),
+_usuario varchar (50),
+_clave varchar(50),
+_ruc char(11),
+_rz varchar(50),
+_repre varchar(50)
+)
+BEGIN
+declare next_cod int;
+declare codigo char(5);
+
+set next_cod=(select COUNT(IdCliente) from cliente); 
+
+if(next_cod < 9) then 
+			 set codigo= concat('CJ00',next_cod+1);
+
+elseif(next_cod >=9 and next_cod <99) then
+    	 set codigo= concat('CJ0',next_cod+1);
+
+elseif(next_cod >=99 and next_cod <999) then
+			 set codigo= concat('CJ',next_cod+1);
+end if;
+
+insert into cliente values(codigo,curdate(),rtrim(_direccion),rtrim(_email),rtrim(_telefono),rtrim(_usuario),rtrim(AES_ENCRYPT(_clave,'carlos')),'1');
+insert into c_juridico values(codigo,rtrim(_ruc),rtrim(_rz),rtrim(_repre));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_cn` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_cn`(
+_direccion varchar(50),
+_email varchar (50),
+_telefono varchar (10),
+_usuario varchar (50),
+_clave varchar(50),
+_apellidos varchar(50),
+_nombres varchar(50),
+_dni char(8),
+_sexo varchar(10)
+)
+BEGIN
+declare next_cod int;
+declare codigo char(5);
+
+set next_cod=(select COUNT(IdCliente) from cliente); 
+
+if(next_cod < 9) then 
+			 set codigo= concat('CN00',next_cod+1);
+
+elseif(next_cod >=9 and next_cod <99) then
+    	 set codigo= concat('CN0',next_cod+1);
+
+elseif(next_cod >=99 and next_cod <999) then
+			 set codigo= concat('CN',next_cod+1);
+end if;
+
+insert into cliente values(codigo,curdate(),rtrim(_direccion),rtrim(_email),rtrim(_telefono),rtrim(_usuario),rtrim(AES_ENCRYPT(_clave,'carlos')),'1');
+insert into c_natural values(codigo,rtrim(_apellidos),rtrim(_nombres),rtrim(_dni),rtrim(_sexo));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_com` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_com`(
+INOUT _codigoVenta  varchar(5),
+_subtotal float,
+_personal char(5),
+_cliente char(5),
+_tipo char(5)
+)
+BEGIN
+
+declare next_cod int;
+declare codigo char(5);
+
+set next_cod=(select COUNT(IdComprobante) from comprobante limit 1); 
+
+if(next_cod < 9) then 
+       set codigo= concat('C000',next_cod+1);
+       SELECT codigo into _codigoVenta FROM comprobante limit 1;
+       
+elseif(next_cod >=9 and next_cod <99) then
+    	 set codigo= concat('C00',next_cod+1);
+        SELECT codigo into _codigoVenta FROM comprobante limit 1;
+
+elseif(next_cod >=99 and next_cod <999) then
+			 set codigo= concat('C0',next_cod+1);
+       SELECT codigo into _codigoVenta FROM comprobante limit 1;
+end if;
+
+insert into comprobante values(codigo,curdate(),curdate(),'1',rtrim(_subtotal),rtrim(_personal),rtrim(_cliente),rtrim(_tipo));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_det` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_det`(
+   _codigov  char(5),
+   _codigop  char(5),
+   _cantidad  int,
+   _precio int
+)
+BEGIN
+
+declare a int;
+set a=(select stock from producto where idproducto=_codigop);
+
+INSERT INTO detalle_comprobante VALUES (rtrim(_codigov),rtrim(_codigop),rtrim(_cantidad),(cantidad * _precio),rtrim(_precio));
+
+update Producto
+set stock=a - _cantidad
+where idproducto=_codigop;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_ma` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_ma`(
+_nom VARCHAR(50)
+)
+BEGIN
+declare next_cod int;
+declare codigo char(5);
+
+set next_cod=(select COUNT(IdMarca) from marca); 
+
+if(next_cod < 9) then 
+			 set codigo= concat('MA00',next_cod+1);
+
+elseif(next_cod >=9 and next_cod <99) then
+    	 set codigo= concat('MA0',next_cod+1);
+
+elseif(next_cod >=99 and next_cod <999) then
+			 set codigo= concat('MA',next_cod+1);
+end if;
+
+insert into MARCA values(codigo,rtrim(_nom));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_per` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_per`(
+_nombres varchar(50),
+_apellidos varchar(50),
+_dni char(8),
+_telefono varchar (10),
+_direccion varchar(50),
+_email varchar (50),
+_cargo char(5)
+)
+BEGIN
+declare next_cod int;
+declare codigo char(5);
+
+set next_cod=(select COUNT(IdPersonal) from personal); 
+
+if(next_cod < 9) then 
+			 set codigo= concat('PE00',next_cod+1);
+
+elseif(next_cod >=9 and next_cod <99) then
+    	 set codigo= concat('PE0',next_cod+1);
+
+elseif(next_cod >=99 and next_cod <999) then
+			 set codigo= concat('PE',next_cod+1);
+end if;
+
+insert into PERSONAL values(codigo,rtrim(_nombres),rtrim(_apellidos),rtrim(_dni),rtrim(_telefono),rtrim(_direccion),rtrim(_email),'1',rtrim(_cargo));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_pro` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_pro`(
+_subcat char(5),
+_des longtext,
+_marca char (5),
+_talla int (11),
+_color varchar(50),
+_precio float,
+_stock int(11),
+_foto varchar(50),
+_foto1 varchar(50),
+_foto2 varchar(50),
+_tags varchar(50)
+)
+BEGIN
+declare next_cod int;
+declare codigo char(5);
+
+set next_cod=(select COUNT(IdProducto) from producto); 
+
+if(next_cod < 9) then 
+			 set codigo= concat('PR00',next_cod+1);
+
+elseif(next_cod >=9 and next_cod <99) then
+    	 set codigo= concat('PR0',next_cod+1);
+
+elseif(next_cod >=99 and next_cod <999) then
+			 set codigo= concat('PR',next_cod+1);
+end if;
+
+insert into producto values(codigo,rtrim(_subcat),rtrim(_des),rtrim(_marca),rtrim(_talla),rtrim(_color),rtrim(_precio),rtrim(_stock),rtrim(_foto),rtrim(_foto1),rtrim(_foto2),rtrim(_tags));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insertar_scat` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_insertar_scat`(
+_nom varchar(50),
+_cat char(5)
+)
+BEGIN
+declare next_cod int;
+declare codigo char(5);
+
+set next_cod=(select COUNT(IdSubCategoria) from subcategoria); 
+
+if(next_cod < 9) then 
+			 set codigo= concat('SC00',next_cod+1);
+
+elseif(next_cod >=9 and next_cod <99) then
+    	 set codigo= concat('SC0',next_cod+1);
+
+elseif(next_cod >=99 and next_cod <999) then
+			 set codigo= concat('SC',next_cod+1);
+end if;
+insert into subcategoria values(codigo,rtrim(_nom),rtrim(_cat));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_modificar_cj` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_modificar_cj`(
+_codigo char(5),
+_direccion varchar(50),
+_email varchar(50),
+_telefono varchar(10),
+_usuario varchar (50),
+_clave varchar(50),
+_rz varchar (50),
+_repre varchar (50),
+_ruc char(11),
+_estado char(1)
+)
+BEGIN
+update cliente set
+direccion = rtrim(_direccion),
+email = rtrim(_email),
+telefono = rtrim(_telefono),
+usuario = rtrim(_usuario),
+clave = rtrim(_clave),
+estado=_estado
+where Idcliente=_codigo;
+
+update c_juridico set
+ruc = rtrim(_ruc),
+razonsocial = rtrim(_rz),
+representante=rtrim(_repre)
+where IdCliente=_codigo;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_modificar_cn` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_modificar_cn`(
+_codigo char(5),
+_direccion varchar(50),
+_email varchar(50),
+_telefono varchar(10),
+_usuario varchar (50),
+_clave varchar(50),
+_apellidos varchar (50),
+_nombres varchar (50),
+_dni char(8),
+_sexo varchar(9),
+_estado char(1)
+)
+BEGIN
+update cliente set
+direccion = rtrim(_direccion),
+email = rtrim(_email),
+telefono = rtrim(_telefono),
+usuario = rtrim(_usuario),
+clave = rtrim(_clave),
+estado=_estado
+where Idcliente=_codigo;
+
+update c_natural set
+apellidos = rtrim(_apellidos),
+nombres = rtrim(_nombres),
+dni=rtrim(_dni),
+sexo=rtrim(_sexo)
+where IdCliente=_codigo;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_modificar_per` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_modificar_per`(
+_codigo char(5),
+_nombres varchar(50),
+_apellidos varchar(50),
+_dni char(8),
+_telefono varchar (10),
+_direccion varchar(50),
+_email varchar (50),
+_cargo char(5),
+_estado char(1)
+)
+BEGIN
+update personal set
+Apellidos = rtrim(_Apellidos),
+Nombres = rtrim(_Nombres),
+DNI = rtrim(_DNI),
+Telefono = rtrim(_Telefono),
+Direccion = rtrim(_Direccion),
+Email = rtrim(_Email),
+IdCargo = rtrim(_Cargo),
+activo=_estado
+where IdPersonal=_codigo;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_modificar_pro` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_modificar_pro`(
+_codigo char(5),
+_subcat char(5),
+_des longtext,
+_marca char (5),
+_talla int (11),
+_color varchar(50),
+_precio float,
+_stock int(11),
+_foto varchar(50),
+_foto1 varchar(50),
+_foto2 varchar(50),
+_tags varchar(50)
+)
+BEGIN
+update producto set
+IdSubCategoria = rtrim(_subcat),
+Descripcion = rtrim(_des),
+IdMarca = rtrim(_marca),
+Talla = rtrim(_talla),
+Color = rtrim(_color),
+Precio = rtrim(_precio),
+Stock = rtrim(_stock),
+foto = rtrim(_foto),
+foto1 = rtrim(_foto1),
+foto2 = rtrim(_foto2),
+tags = rtrim(_tags)
+where IdProducto=_codigo;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_mostrarcargo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_mostrarcargo`()
+BEGIN
+select * from cargo;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_mostrarcat` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_mostrarcat`()
+BEGIN
+select * from categoria;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_mostrarmarca` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_mostrarmarca`()
+BEGIN
+select * from marca;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_mostrarscat` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_mostrarscat`(
+_filtro char(5)
+)
+BEGIN
+
+select sc.IdSubCategoria,sc.Nombre from subcategoria sc,categoria c where c.IdCategoria=sc.IdCategoria and sc.IdCategoria=rtrim(_filtro);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_pagar_reserva` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_pagar_reserva`(IN p_code VARCHAR(8))
+BEGIN
+
+UPDATE `comprobante`
+set `comprobante`.`Pagado`=1
+where `comprobante`.`IdComprobante`=p_code;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_pagar_reserva1` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_pagar_reserva1`(IN p_code VARCHAR(8))
+BEGIN
+
+UPDATE `comprobante`
+set `comprobante`.`Pagado`=0
+where `comprobante`.`IdComprobante`=p_code;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_totales` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_totales`()
+BEGIN
+select (select count(*) from cliente) as clientes,(select count(*) from producto) as productos,(select count(*) from comprobante) as ventas, count(*) as personal from personal;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_validar_cli` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_validar_cli`(
+_usuario varchar(50),
+_clave varchar(50)
+)
+BEGIN
+
+declare tipo varchar(8);
+
+set tipo=rtrim((select TipoCliente from tipo_cliente where usuario=_usuario and AES_DECRYPT(Clave,'carlos')=_clave and Estado='1'));
+
+if(tipo="NATURAL") THEN
+select c.IdCliente,CONCAT(cn.Nombres,' ',cn.Apellidos),cn.DNI,c.Direccion,c.Email,c.Telefono from cliente c,c_natural cn
+where c.IdCliente=cn.IdCliente and AES_DECRYPT(c.Clave,'carlos')=_clave and c.Usuario=_usuario and c.Estado=1;
+End if;
+if(tipo="JURIDICO") THEN
+select c.IdCliente,cj.RazonSocial,cj.RUC,c.Direccion,c.Email,c.Telefono from cliente c,c_juridico cj
+where c.IdCliente=cj.IdCliente and AES_DECRYPT(c.Clave,'carlos')=_clave and (c.Usuario=_usuario or c.`Email`=_usuario) and c.Estado=1;
+END IF;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_validar_per` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = latin1 */ ;
+/*!50003 SET character_set_results = latin1 */ ;
+/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `sp_validar_per`(
+_user varchar(50),
+_clave varchar(50)
+)
+BEGIN
+
+select  p.apellidos,p.nombres,p.dni,p.telefono,c.nombre as cargo,u.foto from personal p,usuario u,cargo c where p.idpersonal=u.idpersonal and p.idcargo=c.idcargo and u.usuario=_user and u.pasword=_clave;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-11-10 15:05:12

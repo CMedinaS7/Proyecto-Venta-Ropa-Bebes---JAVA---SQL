@@ -1,0 +1,306 @@
+/**--------------------------------------
+[FONT-FACE]
+--------------------------------------**/
+@font-face {
+    font-family: 'LucidaHandwritingItalic';
+    src: url('../font/lhandw-webfont.eot');
+    src: url('../font/lhandw-webfontd41d.eot?#iefix') format('embedded-opentype'),
+         url('../font/lhandw-webfont.woff') format('woff'),
+         url('../font/lhandw-webfont.ttf') format('truetype'),
+         url('../font/lhandw-webfont.svg#LucidaHandwritingItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------*/
+/* ---------->>> global settings needed for thickbox <<<-----------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+div, h4, h5, p{padding: 0; margin: 0;}
+
+/* ----------------------------------------------------------------------------------------------------------------*/
+/* ---------->>> thickbox specific link and font settings <<<------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+#TB_window {
+	font: 12px Arial, Helvetica, sans-serif;
+	color: #333333;
+}
+
+#TB_secondLine {
+	font: 10px Arial, Helvetica, sans-serif;
+	color:#666666;
+}
+
+/*#TB_window a:link {color: #666666;}
+#TB_window a:visited {color: #666666;}
+#TB_window a:hover {color: #000;}
+#TB_window a:active {color: #666666;}
+#TB_window a:focus{color: #666666;}*/
+
+/* ----------------------------------------------------------------------------------------------------------------*/
+/* ---------->>> thickbox settings <<<-----------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+#TB_overlay {
+	position: fixed;
+	z-index:100;
+	top: 0px;
+	left: 0px;
+	height:100%;
+	width:100%;
+}
+
+.TB_overlayMacFFBGHack {background: url(macFFBgHack.html) repeat;}
+.TB_overlayBG {
+	background-color:#000;
+	filter:alpha(opacity=75);
+	-moz-opacity: 0.75;
+	opacity: 0.75;
+}
+
+* html #TB_overlay { /* ie6 hack */
+     position: absolute;
+     height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+
+#TB_window {
+	/*position: fixed;*/
+	position: absolute;
+	background:none;
+	z-index: 102;
+	color:#000000;
+	display:none;
+	border:0;
+	text-align:left;
+	top:10%;
+	left:50%;
+}
+
+* html #TB_window { /* ie6 hack */
+	position: absolute;
+	margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
+
+#TB_window img#TB_Image {
+	display:block; margin:0; padding:10px; background:#9ed7d0;
+	border-radius:0 0 8px 8px; -moz-border-radius:0 0 8px 8px; -webkit-border-radius:0 0 8px 8px;
+}
+
+#TB_caption{
+	height:auto; width:94%;
+	padding:7px 16px 7px 16px;
+	margin:0 5px 5px 5px;
+	float:left;
+	border:1px solid #a9a391;
+	background:none;
+}
+
+#TB_closeWindow{
+	height:15px; width:27px;
+	padding:0;
+	position:absolute;
+	top:0; right:0;
+	/*background:#F0EDE3;*/
+}
+#TB_closeWindow img{
+	padding:0;
+}
+
+#TB_closeAjaxWindow{
+	padding:5px 0 5px 0;
+	margin-bottom:1px;
+	text-align:right;
+	float:right;
+	margin-right:-15px;
+}
+
+#TB_ajaxWindowTitle{
+	float:left;
+	padding:7px 0 5px 25px;
+	margin-bottom:1px;
+}
+
+#TB_title{
+	background:#9ed7d0; height:55px; font:normal 22px/38px LucidaHandwritingItalic; color:#194741;
+	border-radius:8px 8px 0 0; -moz-border-radius:8px 8px 0 0; -webkit-border-radius:8px 8px 0 0;
+}
+
+#TB_title1{
+	background:#9ed7d0; height:55px; font:normal 22px/38px LucidaHandwritingItalic; color:#194741;
+	border-radius:8px 8px 0 0; -moz-border-radius:8px 8px 0 0; -webkit-border-radius:8px 8px 0 0;
+}
+
+#TB_ajaxContent{
+	clear:both; padding:2px 15px 15px 15px;
+	overflow:auto; text-align:left; line-height:1.4em;
+	background:#9ed7d0;
+	border-radius:0 0 8px 8px; -moz-border-radius:0 0 8px 8px; -webkit-border-radius:0 0 8px 8px;
+}
+
+#TB_ajaxContent.TB_modal{
+	padding:15px;
+}
+
+#TB_ajaxContent h4{
+	padding:5px 0; text-align:justify; margin:0 10px 30px 10px;
+	font:normal 30px/32px sylfaen; color:#9c2b28;
+	border-bottom:1px dashed #3f3c27; text-transform:uppercase;
+}
+#TB_ajaxContent h5{
+	padding:5px 10px; text-align:justify;
+	font:normal 20px/20px sylfaen; color:#9c2b28;
+}
+#TB_ajaxContent p{
+	padding:0 10px 15px 10px;
+	font:normal 15px/19px calibri; color:#003333;
+	position:relative;
+}
+#TB_ajaxContent .img{
+	background:url(../image/iconos.png) 70px -368px no-repeat; height:92px;
+	margin:50px 0 10px 0;
+}
+
+/* MY CSS FORM*/
+#TB_ajaxContent form{
+	padding:10px 0; margin:0 5px;
+}
+/*#TB_ajaxContent .bordeTopForm{border-top:2px dashed #d3c49d;}
+#TB_ajaxContent p label{
+	width:10em; float:left; padding-top:5px;
+}
+#TB_ajaxContent p input, #TB_ajaxContent p select, #TB_ajaxContent p textarea{
+	border:1px solid #885c6c; padding:5px; width:293px;
+	box-shadow:inset 0 0 10px #999;
+	-moz-box-shadow: inset 0 0 10px #999;
+	-webkit-box-shadow:1px 2px 6px #CCC inset;
+	font:normal 12px/12px Arial, Helvetica, sans-serif; color:#594a2b;
+}
+#TB_ajaxContent p textarea{overflow:auto;}
+#TB_ajaxContent p a{
+	font:normal 12px/18px Arial, Helvetica, sans-serif; color:#581e44;
+	text-decoration:none;
+}
+#TB_ajaxContent p a:hover{ text-decoration:underline;}
+#TB_ajaxContent p button{
+	padding:7px 0 7px 0; background:url(../images/iconBtn.png) 20px bottom no-repeat;
+	border:0; cursor:pointer;
+}
+#TB_ajaxContent p button span{
+	background:#581e44; padding:1px 50px 2px 20px;
+	color:white; text-decoration:none;
+	border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;
+	font:normal 22px/24px Miso; cursor:pointer;
+}
+#TB_ajaxContent .right{text-align:right;}
+#TB_ajaxContent .padLeft{padding-left:125px;}
+#TB_ajaxContent .marRight{margin-right:10px;}
+#TB_ajaxContent p .w1{ width:80px;}
+#TB_ajaxContent p .w3{ width:93px;}
+#TB_ajaxContent p .w2{ width:190px;}
+#TB_ajaxContent p .w4{ width:305px;}
+*/
+/**/
+
+#TB_load{
+	position: fixed;
+	display:none;
+	height:13px;
+	width:208px;
+	z-index:103;
+	top: 50%;
+	left: 50%;
+	margin: -6px 0 0 -104px; /* -height/2 0 0 -width/2 */
+}
+
+* html #TB_load { /* ie6 hack */
+position: absolute;
+margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
+
+#TB_HideSelect{
+	z-index:99;
+	position:fixed;
+	top: 0;
+	left: 0;
+	background-color:#fff;
+	border:none;
+	filter:alpha(opacity=0);
+	-moz-opacity: 0;
+	opacity: 0;
+	height:100%;
+	width:100%;
+}
+
+* html #TB_HideSelect { /* ie6 hack */
+     position: absolute;
+     height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+
+#TB_iframeContent{
+	clear:both;
+	border:none;
+	margin-bottom:-1px;
+	margin-top:1px;
+	_margin-bottom:1px;
+}
+
+/* ---------->>> thickbox caption settings <<<------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+#TB_caption .data{
+	width:30%; min-width:180px; float:left;
+}
+
+.close{
+	width:12px; height:11px; margin:10px 30px 0 0; 
+	background: url(../image/close.png) center no-repeat; padding:12px 10px 0 0;
+}
+.close:hover{
+	width:12px; height:11px; margin:10px 30px 0 0; 
+	background: url(../image/closeHover.png) center no-repeat; padding:12px 10px 0 0;
+}
+.data .thanksTxt .span1{
+	font:bold 29px/43px calibri; color:#052833;
+}
+.data ._a{
+	color:#052833; font:normal 13px/22px calibri; text-decoration:none;
+	margin:0 -30px 0 0;
+}
+.data .textL{ text-align:left;}
+.data .left{ float:left;}
+.data .right{float:right;}
+.data input[type="text"], .data textarea, .data input[type="password"]{
+	height:50px; background:#d1eadb; border:5px solid #c0dfd3; margin:0;
+	font:normal 16px/20px calibri; color:#8aa6a0; padding:0 10px;
+	border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;
+	font:normal 16px/44px calibri\9
+}
+.data .InputW{width:298px;}
+
+.data .submit2{
+	background:url(../image/bgButton.png) center repeat-x; height:38px;
+	cursor:pointer; border:1px solid #271911;
+	border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;
+	font:normal 24px/14px calibri; color:#FFF; padding:0 15px 5px 15px;
+}
+.data .submit2:hover{
+	background:url(../image/bgBtnHover.png) center repeat-x; height:38px;
+}
+.data .submit1{
+	background:url(../image/bgButton2.png) center repeat-x; height:38px;
+	 height:38px; cursor:pointer; border:1px solid #674f3d; 
+	 border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;
+	 font:normal 24px/20px calibri; color:#333300; padding:0 15px 5px 15px;
+}
+.data .submit1:hover{background:#FFF;}
+.data .lblsubmit3{
+	background:url(../image/bgButtonBoder.png) center repeat-x; height:38px;
+	border:0; padding:2px 2px;
+	border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px;
+}
+.data .lblsubmit3:hover{
+	background:url(../image/bgBtnHover1.png) center repeat-x; height:38px;
+}
+.data .lblsubmit1{
+	background:url(../image/bgButton2.png) center repeat-x; height:38px;
+	border:0; padding:2px 2px;
+	border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px;
+}
+.data .lblsubmit1:hover{ background:#FFF;}
